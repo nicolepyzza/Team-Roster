@@ -96,6 +96,7 @@ function writeDoc() {
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <title>Team Roster</title>
                     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+                    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-xVVam1KS4+Qt2OrFa+VdRUoXygyKIuNWUUUBZYv+n27STsJ7oDOHJgfF0bNKLMJF" crossorigin="anonymous">
                 </head>
                 <body>
                     <nav class="navbar navbar-dark bg-dark">
@@ -122,21 +123,46 @@ function addCodeSnippet(member) {
         if (employeeRole === "Intern") {
             const school = member.getSchool();
             codeSnippet = `
-            
-
-                        `;
+                            <div class="col-3">
+                            <div class="card mx-auto mb-3" style="width: 18rem">
+                            <h5 class="card-header">${name}<br><i class="fas fa-graduation-cap"></i></i></i> Intern</h5>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">ID: ${id}</li>
+                                <li class="list-group-item">Email Address: ${email}</li>
+                                <li class="list-group-item">School: ${school}</li>
+                            </ul>
+                            </div>
+                        </div>
+                        `
         } else if (employeeRole === "Engineer") {
             const gitHubName = member.getGithub();
             codeSnippet = `
-            
+                            <div class="col-3">
+                            <div class="card mx-auto mb-3" style="width: 18rem">
+                            <h5 class="card-header">${name}<br><i class="fas fa-laptop-code"></i></i> Engineer</h5>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">ID: ${id}</li>
+                                <li class="list-group-item">Email Address: ${email}</li>
+                                <li class="list-group-item">GitHub: ${gitHubName}</li>
+                            </ul>
+                            </div>
+                        </div>
 
-                        `;
+                        `
         } else {
             const officeNumber = member.getOfficeNumber();
             codeSnippet = `
-            
-
-                        `;
+                            <div class="col-3">
+                            <div class="card mx-auto mb-3" style="width: 18rem">
+                            <h5 class="card-header">${name}<br><i class="fas fa-mug-hot"></i> Manager</h5>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">ID: ${id}</li>
+                                <li class="list-group-item">Email Address: ${email}</li>
+                                <li class="list-group-item">Office Phone: ${officeNumber}</li>
+                            </ul>
+                            </div>
+                        </div>
+                         `
         }
         console.log("adding...");
         fs.appendFile("teamRoster.html", codeSnippet, function(error) {
@@ -150,6 +176,11 @@ function addCodeSnippet(member) {
 
 function finishDoc() {
     const endCode = `
+                        </div>
+                        </div>
+                        
+                    </body>
+                    </html>
     
                     `;
 

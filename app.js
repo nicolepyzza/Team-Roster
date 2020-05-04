@@ -68,16 +68,16 @@ function addTeamMember() {
         .then(function({teamInfo, addTeam}) {
             let newTeamMember;
             if (employeeRole === "Intern") {
-                newTeamMember = new Intern(name, id, email, teamInfo);
+                newTeamMember = new Intern(teamMembersName, id, emailAddress, teamInfo);
             } else if (employeeRole === "Engineer") {
-                newTeamMember = new Engineer(name, id, email, teamInfo);
+                newTeamMember = new Engineer(teamMembersName, id, emailAddress, teamInfo);
             } else {
-                newTeamMember = new Manager(name, id, email, teamInfo);
+                newTeamMember = new Manager(teamMembersName, id, emailAddress, teamInfo);
             }
             teamMembers.push(newTeamMember);
             addCodeSnippet(newTeamMember)
             .then(function() {
-                if (addTeam === "yes") {
+                if (addTeam === "Yes") {
                     addTeamMember();
                 } else {
                     finishDoc();
@@ -114,10 +114,10 @@ function writeDoc() {
 
 function addCodeSnippet(member) {
     return new Promise(function(resolve, reject) {
-        const name = member.getTeamMembersName();
-        const role = member.getTeamMembersRole();
-        const number = member.getID();
-        const email = member.getEmailAddress();
+        const teamMembersName = member.getTeamMembersName();
+        const employeeRole = member.getTeamMembersRole();
+        const id = member.getID();
+        const emailAddress = member.getEmailAddress();
         let codeSnippet = "";
         if (employeeRole === "Intern") {
             const school = member.getSchool();

@@ -102,7 +102,7 @@ function writeDoc() {
                     <nav class="navbar navbar-dark bg-dark">
                         <h3 style="color:white;">Team Roster</h3>
                     </nav>
-                    <div class="container-fluid">
+                    <div class="container">
                         <div class="row">
                 `
     fs.writeFile("teamRoster.html", html, function(error) {
@@ -123,13 +123,13 @@ function addCodeSnippet(member) {
         if (employeeRole === "Intern") {
             const school = member.getSchool();
             codeSnippet = `
-                            <div class="col-3">
+                            <div class="col-4">
                             <div class="card mx-auto mb-3" style="width: 18rem">
-                            <h5 class="card-header">${name}<br><i class="fas fa-graduation-cap"></i></i></i> Intern</h5>
+                            <h5 class="card-header" style="background-color: green; color: white;">${name}<br><i class="fas fa-graduation-cap"></i></i></i> Intern</h5>
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item">ID: ${id}</li>
-                                <li class="list-group-item">Email Address: ${email}</li>
-                                <li class="list-group-item">School: ${school}</li>
+                                <li class="list-group-item"><b>ID:</b> ${id}</li>
+                                <li class="list-group-item"><b>Email Address:</b> ${email}</li>
+                                <li class="list-group-item"><b>School:</b> ${school}</li>
                             </ul>
                             </div>
                         </div>
@@ -137,13 +137,13 @@ function addCodeSnippet(member) {
         } else if (employeeRole === "Engineer") {
             const gitHubName = member.getGithub();
             codeSnippet = `
-                            <div class="col-3">
+                            <div class="col-4">
                             <div class="card mx-auto mb-3" style="width: 18rem">
-                            <h5 class="card-header">${name}<br><i class="fas fa-laptop-code"></i></i> Engineer</h5>
+                            <h5 class="card-header" style="background-color: orange; color: white;">${name}<br><i class="fas fa-laptop-code"></i></i> Engineer</h5>
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item">ID: ${id}</li>
-                                <li class="list-group-item">Email Address: ${email}</li>
-                                <li class="list-group-item">GitHub: ${gitHubName}</li>
+                                <li class="list-group-item"><b>ID:</b> ${id}</li>
+                                <li class="list-group-item"><b>Email Address:</b> ${email}</li>
+                                <li class="list-group-item"><b>GitHub:</b> ${gitHubName}</li>
                             </ul>
                             </div>
                         </div>
@@ -152,13 +152,13 @@ function addCodeSnippet(member) {
         } else {
             const officeNumber = member.getOfficeNumber();
             codeSnippet = `
-                            <div class="col-3">
+                            <div class="col-4">
                             <div class="card mx-auto mb-3" style="width: 18rem">
-                            <h5 class="card-header">${name}<br><i class="fas fa-mug-hot"></i> Manager</h5>
+                            <h5 class="card-header" style="background-color: blue; color: white;">${name}<br><i class="fas fa-mug-hot"></i> Manager</h5>
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item">ID: ${id}</li>
-                                <li class="list-group-item">Email Address: ${email}</li>
-                                <li class="list-group-item">Office Phone: ${officeNumber}</li>
+                                <li class="list-group-item"><b>ID:</b> ${id}</li>
+                                <li class="list-group-item"><b>Email Address:</b> ${email}</li>
+                                <li class="list-group-item"><b>Office Phone:</b> ${officeNumber}</li>
                             </ul>
                             </div>
                         </div>

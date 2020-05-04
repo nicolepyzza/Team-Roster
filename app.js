@@ -1,49 +1,165 @@
-// const Manager = require("./lib/Manager");
-// const Engineer = require("./lib/Engineer");
-// const Intern = require("./lib/Intern");
-// const path = require("path");
-// const fs = require("fs");
-// const OUTPUT_DIR = path.resolve(__dirname, "output");
-// const outputPath = path.join(OUTPUT_DIR, "team.html");
-// const render = require("./lib/htmlRenderer");
+const Manager = require("./lib/Manager");
+const Engineer = require("./lib/Engineer");
+const Intern = require("./lib/Intern");
+const path = require("path");
+const fs = require("fs");
+const OUTPUT_DIR = path.resolve(__dirname, "output");
+const outputPath = path.join(OUTPUT_DIR, "team.html");
+const render = require("./lib/htmlRenderer");
 let responseQuantity;
+const teamMembers = [];
+const inquirer = require("inquirer");
 
+function runApp() {
+    writeDoc();
+    addTeamMember();
+}
 
-let inquirer = require("inquirer");
+runApp();
 
-inquirer
-.prompt([
-    {
-        type: 'input',
-        name: 'quantity',
-        message: 'How many people are on your team?',
-        validate: function(value) {
-            var valid = !isNaN(parseFloat(value));
-            return valid || 'Please enter a number';
+function addTeamMember() {
+    inquirer
+    .prompt([
+        {
+            type: 'name',
+            name: 'teamMembersName',
+            message: 'Enter a team member\'s name.',
         },
-        filter: Number
-    },
-    {
-        when: function(response) {
-            return response.quantity;
+        {
+            type: 'rawlist',
+            name: 'employeeRole',
+            message: 'What is this team member\'s role?',
+            choices: ['Intern', 'Engineer', 'Manager'],
         },
-        name: 'employeeName',
-        message: 'Enter the employees name.',
-    },
-    {
-        when: function(response) {
-            return response.quantity;
+        {
+            type: 'input',
+            name: 'id',
+            message: 'Enter this team member\'s ID.',
         },
-        type: 'rawlist',
-        name: 'employeeType',
-        message: 'What type of employee is he/she?',
-        choices: ['intern', 'engineer', 'manager'],
-    },
-]).then(answers => {
-    responseQuantity = answers.quantity;
-    console.log(responseQuantity);
-    // Questions();
-})
+        {
+            type: 'input',
+            name: 'emailAddress',
+            message: 'Enter this team member\'s email address.',
+        },
+    ])
+    .then(function({teamMembersName, employeeRole, id, emailAddress}) {
+        let teamInfo = "";
+        if (employeeRole === "Intern") {
+            teamInfo = "school name.";
+        } else if (employeeRole === "Engineer") {
+            teamInfo = "GitHub username.";
+        } else {
+            teamInfo = "office or cell phone number.";
+        }
+        inquirer
+        .prompt([
+            {
+                type: 'input',
+                message: `Enter ${teamMembersName}'s ${teamInfo}`,
+                name: 'teamInfo',
+            },
+            {
+                type: 'rawlist',
+                name: 'addTeam',
+                message: 'Do you want to add another team member?',
+                choices: ['Yes', 'No'],
+            }
+        ])
+        .then(function({teamInfo, addTeam}) {
+            let newTeamMember;
+            if (employeeRole === "Intern") {
+                newTeamMember = new Intern(name, id, email, teamInfo);
+            } else if (employeeRole === "Engineer") {
+                newTeamMember = new Engineer(name, id, email, teamInfo);
+            } else {
+                newTeamMember = new Manager(name, id, email, teamInfo);
+            }
+            teamMembers.push(newTeamMember);
+            addCodeSnippet(newTeamMember)
+            .then(function() {
+                if (addTeam === "yes") {
+                    addTeamMember();
+                } else {
+                    finishDoc();
+                }
+            });
+        });
+    });
+}
+
+function writeDoc() {
+    const html = `
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Team Roster</title>
+                    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+                </head>
+                <body>
+                    <nav>
+
+                    </nav>
+                    <div class="container-fluid">
+                        <div class="row">
+                `
+    fs.writeFile("teamRoster.html", html, function(error) {
+        if (error) {
+            console.log(error);
+        }
+    })
+    console.log("testing");
+}
+
+function addCodeSnippet(member) {
+    return new Promise(function(resolve, reject) {
+        const name = member.getName();
+        const role = member.getRole();
+        const number = member.getID();
+        const email = member.email();
+        let codeSnippet = "";
+        if (employeeRole === "Intern") {
+            const school = member.getSchool();
+            codeSnippet = `
+            
+
+                        `;
+        } else if (employeeRole === "Engineer") {
+            const gitHubName = member.getGithub();
+            codeSnippet = `
+            
+
+                        `;
+        } else {
+            const phoneNumber = member.getPhoneNumber();
+            codeSnippet = `
+            
+
+                        `;
+        }
+        console.log("adding...");
+        fs.appendFile("teamRoster.html", codeSnippet, function(error) {
+            if (error) {
+                return reject(error);
+            }
+            return resolve();
+        })
+    })
+}
+
+function finishDoc() {
+    const endCode = `
+    
+                    `;
+
+    fs.appendFile("teamRoster.html", endCode, function(error) {
+        if(error) {
+            console.log(error);
+        }
+    })
+    console.log("complete!");
+}
 
 
 // function Questions(responseQuantity) {

@@ -9,7 +9,7 @@ test("Can set GitHUb account via constructor", () => {
 test("getRole() should return \"Engineer\"", () => {
   const testValue = "Engineer";
   const e = new Engineer("Foo", 1, "test@test.com", "GitHubUser");
-  expect(e.getRole()).toBe(testValue);
+  expect(e.getTeamMembersRole()).toBe(testValue);
 });
 
 test("Can get GitHub username via getGithub()", () => {

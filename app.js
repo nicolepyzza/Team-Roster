@@ -22,7 +22,7 @@ function addTeamMember() {
     .prompt([
         {
             type: 'name',
-            name: 'teamMembersName',
+            name: 'name',
             message: 'Enter a team member\'s name.',
         },
         {
@@ -38,11 +38,11 @@ function addTeamMember() {
         },
         {
             type: 'input',
-            name: 'emailAddress',
+            name: 'email',
             message: 'Enter this team member\'s email address.',
         },
     ])
-    .then(function({teamMembersName, employeeRole, id, emailAddress}) {
+    .then(function({name, employeeRole, id, email}) {
         let teamInfo = "";
         if (employeeRole === "Intern") {
             teamInfo = "school name.";
@@ -55,7 +55,7 @@ function addTeamMember() {
         .prompt([
             {
                 type: 'input',
-                message: `Enter ${teamMembersName}'s ${teamInfo}`,
+                message: `Enter ${name}'s ${teamInfo}`,
                 name: 'teamInfo',
             },
             {
@@ -68,11 +68,11 @@ function addTeamMember() {
         .then(function({teamInfo, addTeam}) {
             let newTeamMember;
             if (employeeRole === "Intern") {
-                newTeamMember = new Intern(teamMembersName, id, emailAddress, teamInfo);
+                newTeamMember = new Intern(name, id, email, teamInfo);
             } else if (employeeRole === "Engineer") {
-                newTeamMember = new Engineer(teamMembersName, id, emailAddress, teamInfo);
+                newTeamMember = new Engineer(name, id, email, teamInfo);
             } else {
-                newTeamMember = new Manager(teamMembersName, id, emailAddress, teamInfo);
+                newTeamMember = new Manager(name, id, email, teamInfo);
             }
             teamMembers.push(newTeamMember);
             addCodeSnippet(newTeamMember)
@@ -98,8 +98,8 @@ function writeDoc() {
                     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
                 </head>
                 <body>
-                    <nav>
-
+                    <nav class="navbar navbar-dark bg-dark">
+                        <h3 style="color:white;">Team Roster</h3>
                     </nav>
                     <div class="container-fluid">
                         <div class="row">
@@ -114,10 +114,10 @@ function writeDoc() {
 
 function addCodeSnippet(member) {
     return new Promise(function(resolve, reject) {
-        const teamMembersName = member.getTeamMembersName();
+        const name = member.getTeamMembersName();
         const employeeRole = member.getTeamMembersRole();
         const id = member.getID();
-        const emailAddress = member.getEmailAddress();
+        const email = member.getEmailAddress();
         let codeSnippet = "";
         if (employeeRole === "Intern") {
             const school = member.getSchool();
@@ -132,7 +132,7 @@ function addCodeSnippet(member) {
 
                         `;
         } else {
-            const phoneNumber = member.getPhoneNumber();
+            const officeNumber = member.getOfficeNumber();
             codeSnippet = `
             
 

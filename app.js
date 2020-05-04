@@ -114,10 +114,10 @@ function writeDoc() {
 
 function addCodeSnippet(member) {
     return new Promise(function(resolve, reject) {
-        const name = member.getName();
-        const role = member.getRole();
+        const name = member.getTeamMembersName();
+        const role = member.getTeamMembersRole();
         const number = member.getID();
-        const email = member.email();
+        const email = member.getEmailAddress();
         let codeSnippet = "";
         if (employeeRole === "Intern") {
             const school = member.getSchool();

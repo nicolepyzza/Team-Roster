@@ -34,5 +34,5 @@ Jest
 
 ### GitHub Pages
 ```
-
+https://nicoleobom.github.io/Team-Roster/
 ```

@@ -14,6 +14,17 @@ Answer questions for each team member
 When finished, it will generate a team roster html file that
 displays each team member in their own card summarizing their data.
 ```
+
+### Licenses Required
+```
+None
+```
+
+### How to Test
+```
+npm test
+```
+
 ### Technologies Used
 ```
 Node.js

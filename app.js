@@ -100,9 +100,11 @@ function writeDoc() {
                     <link rel="stylesheet" type="text/css" href="style.css">
                     </head>
                 <body>
-                    <nav class="navbar navbar-dark bg-dark">
-                        <h3 style="color:white;">Team Roster</h3>
-                    </nav>
+                    <div class="jumbotron jumbotron-fluid">
+                        <div class="container d-flex justify-content-center align-items-center">
+                            <h1 class="display-4">Team Roster</h1>
+                        </div>
+                    </div>
                     <div class="container">
                         <div class="row">
                 `

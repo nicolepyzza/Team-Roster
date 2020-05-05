@@ -117,7 +117,7 @@ function addCodeSnippet(member) {
     return new Promise(function(resolve, reject) {
         const name = member.getTeamMembersName();
         const employeeRole = member.getTeamMembersRole();
-        const id = member.getID();
+        const id = member.getId();
         const email = member.getEmailAddress();
         let codeSnippet = "";
         if (employeeRole === "Intern") {
@@ -135,7 +135,7 @@ function addCodeSnippet(member) {
                         </div>
                         `
         } else if (employeeRole === "Engineer") {
-            const gitHubName = member.getGithub();
+            const github = member.getGithub();
             codeSnippet = `
                             <div class="col-4">
                             <div class="card mx-auto mb-3" style="width: 18rem">
@@ -143,7 +143,7 @@ function addCodeSnippet(member) {
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item"><b>ID:</b> ${id}</li>
                                 <li class="list-group-item"><b>Email Address:</b> ${email}</li>
-                                <li class="list-group-item"><b>GitHub:</b> ${gitHubName}</li>
+                                <li class="list-group-item"><b>GitHub:</b> ${github}</li>
                             </ul>
                             </div>
                         </div>
